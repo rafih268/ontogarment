@@ -1,0 +1,16 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "This repository has been created to store your final year project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.cim.rhul.ac.uk/zjac260/PROJECT.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
