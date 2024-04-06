@@ -32,7 +32,7 @@ function NavbarComponent() {
                 <CartItem key={index} id={currentProduct.id} quantity={currentProduct.quantity} />
               ))}
 
-              <h1>Total: {cart.getTotalCost().toFixed(2)}</h1>
+              <h1>Total: £{cart.getTotalCost().toFixed(2)}</h1>
 
               <Button variant="success">
                 Confirm Order
