@@ -26,7 +26,7 @@ function ProductCard(props) {
                   className='minusButton' onClick={() => cart.removeOneFromCart(product.id)}>-</Button>
               </Col>
             </Form>
-            <Button variant="danger" className="removeButton" onClick={() => cart.removeOneFromCart(product.id)}>Remove from cart</Button>
+            <Button variant="danger" className="removeButton" onClick={() => cart.deleteFromCart(product.id)}>Remove from cart</Button>
           </>
         ) : (
           <Button
