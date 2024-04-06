@@ -13,9 +13,25 @@ function ProductCard(props) {
       <Card.Body>
         <Card.Title>{product.title}</Card.Title>
         <Card.Text>£{product.price}</Card.Text>
-        <Button variant='primary' onClick={() => cart.addOneToCart(product.id)}>
-          Add to Cart
-        </Button>
+        {productQuantity > 0 ? (
+          <>
+            <Form as={Row}>
+              <Form.Label column='true'>
+                In Cart: {productQuantity}
+              </Form.Label>
+              <Col>
+                <Button
+                  className='addButton'>+</Button>
+                <Button
+                  className='minusButton'>-</Button>
+              </Col>
+            </Form>
+          </>
+        ) : (
+          <Button
+            variant='primary'
+            onClick={() => cart.addOneToCart(product.id)}>Add to Cart</Button>
+        )}
       </Card.Body>
     </Card>
   );
