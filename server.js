@@ -30,7 +30,7 @@ app.post("/checkout", async (req, res) => {
   });
 
   res.send(JSON.stringify({
-    message: 'Stripe session works!'
+    url: session.url,
   }))
 });
 
