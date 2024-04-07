@@ -8,6 +8,7 @@ const stripe = require('stripe')('sk_test_51P2hnDLDKlYtsvc4i76ovyEcNLzUpdjIQCNjA
 const app = express();
 app.use(cors());
 app.use(express.static("public"));
+app.use(express.json());
 
 app.post("/checkout", async (req, res) => {
   const items = req.body.items;
@@ -31,7 +32,7 @@ app.post("/checkout", async (req, res) => {
 
   res.send(JSON.stringify({
     url: session.url,
-  }))
+  }));
 });
 
 app.listen(4000, () => console.log("Server started on port 4000"))
