@@ -11,14 +11,22 @@ app.use(express.static("public"));
 
 app.post("/checkout", async (req, res) => {
   const items = req.body.items;
-  let lineItems = [];
+  let itemList = [];
   items.forEach((item) => {
-    lineItems.push(
+    itemList.push(
       {
         price: item.id, // This is how the object is formatted in stripe
         quantity: item.quantity,
       }
     )
+  });
+
+  // Initialise stripe checkout session with retrieved list
+  const session = await stripe.checkout.sessions.create({
+    line_items: itemList,
+    mode: 'payment',
+    success_url: "http://localhost:3000/success",
+    cancel_url: "http://localhost:3000/cancel"
   });
 
   res.send(JSON.stringify({
