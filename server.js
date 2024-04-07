@@ -9,4 +9,21 @@ const app = express();
 app.use(cors());
 app.use(express.static("public"));
 
+app.post("/checkout", async (req, res) => {
+  const items = req.body.items;
+  let lineItems = [];
+  items.forEach((item) => {
+    lineItems.push(
+      {
+        price: item.id, // This is how the object is formatted in stripe
+        quantity: item.quantity,
+      }
+    )
+  });
+
+  res.send(JSON.stringify({
+    message: 'Stripe session works!'
+  }))
+});
+
 app.listen(4000, () => console.log("Server started on port 4000"))
