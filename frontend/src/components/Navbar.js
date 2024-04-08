@@ -1,31 +1,42 @@
 import { Button, Container, Navbar, Modal } from 'react-bootstrap';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { CartContext } from '../CartContext';
 import CartItem from './CartItem';
 
 function NavbarComponent() {
   const cart = useContext(CartContext);
   const [show, setShow] = useState(false);
+  const [totalCost, setTotalCost] = useState(0);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const count = cart.items.reduce((sum, product) => sum + product.quantity, 0);
 
+  useEffect(() => {
+    cart.getTotalCost().then((data) => {
+      setTotalCost(data);
+    }).catch (error => {
+      console.error('Error')
+    });
+  }, [cart]);
+
   const checkout = async () => {
     await fetch('http://localhost:4000/checkout', {
-      method: "POST",
+      method: 'POST',
       headers: {
-        'Content-Type':'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({items: cart.items}),
-    }).then((response) => {
-      return response.json();
-    }).then((response) => {
-      if (response.url) {
-        window.location.assign(response.url); // Allows user to checkout with stripe
-      }
-    });
-  }
+      body: JSON.stringify({ items: cart.items }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        if (response.url) {
+          window.location.assign(response.url); // Allows user to checkout with stripe
+        }
+      });
+  };
 
   return (
     <>
@@ -45,12 +56,16 @@ function NavbarComponent() {
             <>
               <p>Items in your shopping cart:</p>
               {cart.items.map((currentProduct, index) => (
-                <CartItem key={index} id={currentProduct.id} quantity={currentProduct.quantity} />
+                <CartItem
+                  key={index}
+                  id={currentProduct.id}
+                  quantity={currentProduct.quantity}
+                />
               ))}
 
-              <h1>Total: £{cart.getTotalCost().toFixed(2)}</h1>
+              <h1>Total: £{totalCost.toFixed(2)}</h1>
 
-              <Button variant="success" onClick={checkout}>
+              <Button variant='success' onClick={checkout}>
                 Confirm Order
               </Button>
             </>
