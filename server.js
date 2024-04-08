@@ -1,5 +1,8 @@
 const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware')
 var cors = require('cors');
+
+const port = 3001
 
 // Initialising stripe client
 // Stripe account corresponds to key provided
@@ -9,6 +12,28 @@ const app = express();
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
+
+// Blazegraph and Node js have different domains
+// CORS issue resolved below
+// Allow CORS with preflight
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); 
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  if ('OPTIONS' == req.method) {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+app.use('/blazegraph', createProxyMiddleware({
+  target: 'http://localhost:8080', // PORT changed accordingly based on where blazegraph is running
+  changeOrigin: true,
+  pathRewrite: {
+    '^/blazegraph': '/blazegraph',
+  },
+}));
 
 app.post("/checkout", async (req, res) => {
   const items = req.body.items;
@@ -35,4 +60,4 @@ app.post("/checkout", async (req, res) => {
   }));
 });
 
-app.listen(4000, () => console.log("Server started on port 4000"))
+app.listen(port, () => console.log(`CORS-enabled web proxy running at http://localhost:${port}`));
