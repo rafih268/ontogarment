@@ -49,14 +49,27 @@ function queryProductData() {
   });
 }
 
-function getProductData(id) {
-  let productData = productsArray.find(product => product.id === id);
+async function getProductData(id) {
+  try {
+    const products = await productsArray; // productsArray is a promise therefore need to be resolved
 
-  if (productData == undefined) {
-    console.log("Product data does not exist for ID: " + id);
+    let productData;
+
+    products.forEach(element => {
+      if (element.id === id) {
+        productData = element;
+      }
+    });
+
+    if (productData === undefined) {
+      console.log('Product data does not exist for ID: ' + id);
+    }
+
+    return productData;
+  } catch (error) {
+    console.error('Error fetching product data:', error);
+    return null; // Return null if an error occurs
   }
-
-  return productData;
 }
 
 
