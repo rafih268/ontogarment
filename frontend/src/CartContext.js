@@ -71,14 +71,21 @@ export function CartProvider({ children }) {
     );
   }
 
-  function getTotalCost() {
+  async function getTotalCost() {
     let totalCost = 0;
-    cartProducts.map((cartItem) => {
-      const data = getProductData(cartItem.id);
-      totalCost += data.price * cartItem.quantity;
+    // Mapping each cart item to a promise that resolves to the cost of that item
+    const promises = cartProducts.map(async (cartItem) => {
+      const data = await getProductData(cartItem.id);
+      return data.price * cartItem.quantity;
     });
+
+    // Waiting for all promises to resolve and then calculating the total cost
+    const costs = await Promise.all(promises);
+    totalCost = costs.reduce((acc, curr) => acc + curr, 0);
+
     return totalCost;
   }
+
 
   const contextValue = {
     items: cartProducts,

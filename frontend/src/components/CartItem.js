@@ -1,22 +1,39 @@
-import Button from "react-bootstrap/Button";
-import { CartContext } from "../CartContext";
-import { useContext } from "react";
-import { getProductData } from "../productsStore";
+import Button from 'react-bootstrap/Button';
+import { CartContext } from '../CartContext';
+import { useContext, useState, useEffect } from 'react';
+import { getProductData } from '../productsStore';
 
 function CartItem(props) {
   const cart = useContext(CartContext);
-  const id = props.id;
-  const quantity = props.quantity;
-  const data = getProductData(id);
+  const [productData, setProductData] = useState(null);
+  const { id, quantity } = props;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getProductData(id);
+        setProductData(data);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  if (!productData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      <h3>{data.title}</h3>
+      <h3>{productData.title}</h3>
       <p>{quantity} total</p>
-      <p>£{ (quantity * data.price).toFixed(2) }</p>
-      <Button className='cartRemove' onClick={() => cart.deleteFromCart(id)}>Remove</Button>
+      <p>£{(quantity * productData.price).toFixed(2)}</p>
+      <Button className='cartRemove' onClick={() => cart.deleteFromCart(id)}>
+        Remove
+      </Button>
     </>
-  )
+  );
 }
 
 export default CartItem;
