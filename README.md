@@ -1,5 +1,9 @@
-# Final Year Project
+# Ontogarment
 
-This repository has been created to store your final year project.
+> Final Year Project for BSc Computer Science
 
-You may edit it as you like, but please do not remove the default topics or the project members list. These need to stay as currently defined in order for your supervisor to be able to find your project.
+## Introduction
+
+- This project is based on the use of ontological models in an e-commerce web application.
+- The web application represents a garments store named Ontogarment.
+- The purpose of this project is to make searching for certain clothing products much more efficient and relevant by invoking reasoning.
