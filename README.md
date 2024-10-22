@@ -23,4 +23,13 @@
 - To install packages and dependencies you would also need npm, which should be available to use on the terminal after installing NodeJS. You can check by running `npm --version` on the terminal.
 - [Tomcat](https://tomcat.apache.org/download-90.cgi) must also be installed for hosting the Blazegraph server. (Version 9 is recommended)
 - In order to view the ontology model generated for this application, you would have to install [Protege](https://protege.stanford.edu/). Using default settings for the installation should suffice.
-- You would also need to create a namespace on Blazegrpah. Instructions for that are provided later.
+- You would also need to create a namespace on Blazegrpah. Instructions for that are provided [here](Creating a namespace on Blazegraph).
+
+## Initiating the Blazegraph server
+
+- If Tomcat is installed on your system, go to its file location and click into the bin folder.
+- In order to start the Tomcat server you can click on `startup.bat` or `tomcat9w.exe`.
+- You can now open Blazegraph Triplestore on `localhost:8080/blazegraph`.
+
+## Creating a namespace on Blazegraph
+
