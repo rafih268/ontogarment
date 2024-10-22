@@ -63,3 +63,17 @@ com.bigdata.namespace.ontogarment.spo.com.bigdata.btree.BTree.branchingFactor=10
 com.bigdata.rdf.sail.isolatableIndices=false
 com.bigdata.namespace.ontogarment.lex.com.bigdata.btree.BTree.branchingFactor=400
 ~~~
+
+## Running the project
+
+- In the root directory of the project run `npm install` to install all the necessary dependencies.
+
+- Run `npm start` to start the server which should be running on port 3001.
+
+- Move to the frontend directory in the project and run the following commands:
+~~~
+npm install
+npm start
+~~~
+
+- This will initiate the react application which will open up on `localhost:3000`
