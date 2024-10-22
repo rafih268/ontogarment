@@ -41,3 +41,25 @@ https://www.youtube.com/watch?v=VCyiKlWd810&t=270s
 
 ## Creating a namespace on Blazegraph
 
+- I have showed on the video on how to create a namespace on blazegraph, however there are some additional settings required for the namespace which I will be mentioning here.
+- **ontogarment** should be the name of the namespace.
+- After creating a namespace a window will pop up with regards to specifying certain properties.
+- Copy and paste the following properties:
+
+~~~
+com.bigdata.relation.class=com.bigdata.rdf.store.LocalTripleStore
+com.bigdata.rdf.sail.truthMaintenance=true
+com.bigdata.rdf.store.AbstractTripleStore.textIndex=false
+com.bigdata.rdf.store.AbstractTripleStore.justify=false
+com.bigdata.rdf.store.AbstractTripleStore.statementIdentifiers=false
+com.bigdata.relation.container=ontogarment
+com.bigdata.rdf.store.AbstractTripleStore.axiomsClass=com.bigdata.rdf.axioms.RdfsAxioms
+com.bigdata.rdf.sail.namespace=ontogarment
+com.bigdata.rdf.store.AbstractTripleStore.quads=false
+com.bigdata.rdf.store.AbstractTripleStore.geoSpatial=false
+com.bigdata.relation.namespace=ontogarment
+com.bigdata.rdf.store.AbstractTripleStore.vocabularyClass=com.bigdata.rdf.vocab.core.BigdataCoreVocabulary_v20160317
+com.bigdata.namespace.ontogarment.spo.com.bigdata.btree.BTree.branchingFactor=1024
+com.bigdata.rdf.sail.isolatableIndices=false
+com.bigdata.namespace.ontogarment.lex.com.bigdata.btree.BTree.branchingFactor=400
+~~~
